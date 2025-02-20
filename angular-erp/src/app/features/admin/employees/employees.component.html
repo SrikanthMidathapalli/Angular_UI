@@ -1,1 +1,129 @@
-<p>employees works!</p>
+<div class="container mt-4">
+  <h2 class="text-center">Manage Employees & Admins</h2>
+
+  <!-- Tabs for Switching Between Admins & Employees -->
+  <ul class="nav nav-tabs mt-3" id="employeeAdminTabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-bs-toggle="tab" href="#admins">Admins</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-bs-toggle="tab" href="#employees">Employees</a>
+    </li>
+  </ul>
+
+  <div class="tab-content mt-3">
+    <!-- Admins Section -->
+    <div class="tab-pane fade show active" id="admins">
+      <div class="d-flex justify-content-between align-items-center">
+        <h3>Admin List</h3>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAdminModal">Add Admin</button>
+      </div>
+
+      <table class="table table-bordered table-striped mt-3">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let admin of admins">
+            <td>{{ admin.id }}</td>
+            <td>{{ admin.name }}</td>
+            <td>{{ admin.email }}</td>
+            <td>
+              <button class="btn btn-danger btn-sm" (click)="deleteAdmin(admin.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Employees Section -->
+    <div class="tab-pane fade" id="employees">
+      <div class="d-flex justify-content-between align-items-center">
+        <h3>Employee List</h3>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">Add Employee</button>
+      </div>
+
+      <table class="table table-bordered table-striped mt-3">
+        <thead class="table-dark">
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Department</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employees">
+            <td>{{ employee.id }}</td>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.email }}</td>
+            <td>{{ employee.departmentId }}</td>
+            <td>
+              <button class="btn btn-danger btn-sm" (click)="deleteEmployee(employee.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Add Admin Modal -->
+<div class="modal fade" id="addAdminModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New Admin</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form #adminForm="ngForm" (ngSubmit)="addAdmin(adminForm.value)">
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" name="name" ngModel required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" ngModel required>
+          </div>
+          <button type="submit" class="btn btn-primary">Add Admin</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Employee Modal -->
+<div class="modal fade" id="addEmployeeModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New Employee</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form #employeeForm="ngForm" (ngSubmit)="addEmployee(employeeForm.value)">
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" name="name" ngModel required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" ngModel required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Department</label>
+            <input type="text" class="form-control" name="department" ngModel required>
+          </div>
+          <button type="submit" class="btn btn-success">Add Employee</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
